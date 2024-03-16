@@ -22,7 +22,7 @@
 
                     <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
 
-{{$page.props.errors}}
+
                         <form @submit.prevent="submit">
                             <div class="mt-4">
                                 <InputLabel value="Titulo"/>

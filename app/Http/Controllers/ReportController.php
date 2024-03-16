@@ -15,8 +15,13 @@ class ReportController extends Controller
      * Display a listing of the resource.
      */
     public function index()
+
     {
-        return Inertia::render('Dashboard');
+        $user_id = Auth::id();
+        $reports = User::find($user_id)->reports()->get();
+#dd($reports);
+
+        return Inertia::render('Dashboard',['reports' => $reports]);
 
     }
 
@@ -33,36 +38,18 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
             'init_date' =>'required|date',
             'end_date' =>'required|date'
         ]);
-#dd($validatedData);
-        /*  $validatedData = $request->validate([
-              'name' => 'required|max:255',
-              'email' => 'required|email|unique:users',
-              'password' => 'required|min:6',
-          ]);*/
 
-     /*  $validated= $request->validate([
-            'title' => ['required', 'max:255'],
-            'content' => ['required'],
-            'init_date' => ['required', 'date'],
-            'end_date' => ['required', 'date'],
-        ]);*/
         $user_id =Auth::id();
         Report::create($validatedData + ['user_id' => $user_id]);
 
 
-       # return Inertia::render('report/create');
-      #  dd($validatedData);
-      #  $user_id =Auth::id();
-       # $validator->merge(['name' => 'Taylor Otwell']);
-
+        return to_route('dashboard');
 
     }
 
