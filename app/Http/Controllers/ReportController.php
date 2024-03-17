@@ -20,9 +20,7 @@ class ReportController extends Controller
     {
         $user_id = Auth::id();
         $reports = User::find($user_id)->reports()->get();
-       # $user = User::find(1);
-       # $user->notify(new ReportNotify());
-#dd('algo');
+
 
         return Inertia::render('Dashboard',['reports' => $reports]);
 
@@ -89,4 +87,15 @@ class ReportController extends Controller
     {
         //
     }
+
+    public function report_to_pdf(Report $report)
+    {
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->getDomPDF()->set_option("enable_php", true);
+
+        $pdf->loadView('report', compact('report'));
+        return $pdf->stream('reporte.pdf');
+    }
+
 }
