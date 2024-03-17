@@ -13,7 +13,7 @@
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Capturar Reporte</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Editar Reporte</h2>
         </template>
 
         <div class="py-12">
@@ -46,8 +46,8 @@
 
 
                                 <textarea v-model="form.content"
-                                        class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        placeholder=" ">
+                                          class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                          placeholder=" ">
 
                                 </textarea>
 
@@ -82,6 +82,21 @@
                                 />
                             </div>
 
+
+
+                            <div class="mt-4">
+
+                                <InputLabel :value="form.status == 1 ? 'Estado del Reporte : En Edicion' : ' Estado del Reporte : Enviado'"/>
+                                <br>
+
+                                <input type="radio" id="one" value="1" v-model="form.status" />
+                                <label for="one" class="mt-2" >En Edicion</label>
+                                <br>
+                                <input type="radio" id="two" value="2" v-model="form.status" />
+                                <label for="two">Enviar a Revision</label>
+                            </div>
+
+
                             <PrimaryButton class="mt-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                                 Enviar
                             </PrimaryButton>
@@ -100,17 +115,19 @@
 <script>
     export default {
         props: {
-            users: Object,
-            errors: Object
+
+            errors: Object,
+            report: Object
         },
         name: "Create",
         data(){
             return{
                 form:{
-                    title:'',
-                    content:'',
-                    init_date:'',
-                    end_date:''
+                    title:this.report.title,
+                    content: this.report.content,
+                    init_date:this.report.init_date,
+                    end_date:this.report.end_date,
+                    status:this.report.status
 
                 }
             }
@@ -118,7 +135,7 @@
         methods:{
             submit(){
                 console.log(this.form);
-                router.post(route('report.store'),this.form)
+                router.put(route('report.update', {'report':this.report}),this.form)
             }
         },
         components:{

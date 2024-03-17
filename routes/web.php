@@ -25,6 +25,8 @@ Route::get('/dashboard', [ReportController::class, 'index'])->middleware(['auth'
 Route::get('/report/create', [ReportController::class, 'create'])->middleware(['auth', 'verified'])->name('report.create');
 Route::post('/report/store', [ReportController::class, 'store'])->middleware(['auth', 'verified'])->name('report.store');
 Route::get('/report/show/{report}', [ReportController::class, 'show'])->middleware(['auth', 'verified'])->name('report.show');
+Route::get('/report/edit/{report}', [ReportController::class, 'edit'])->middleware(['auth', 'verified'])->name('report.edit');
+Route::put('/report/update/{report}', [ReportController::class, 'update'])->middleware(['auth', 'verified'])->name('report.update');
 Route::get('/report/report_to_pdf/{report}', [ReportController::class, 'report_to_pdf'])->middleware(['auth', 'verified'])->name('report.report_to_pdf');
 
 Route::middleware('auth')->group(function () {

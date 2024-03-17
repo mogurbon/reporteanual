@@ -9,7 +9,7 @@ import { Link } from '@inertiajs/vue3'
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Reportes</h2>
         </template>
 
         <div class="py-12">
@@ -32,13 +32,13 @@ import { Link } from '@inertiajs/vue3'
                                 <td class=" p-3 border border-slate-300">{{r.id}}</td>
                                 <td class=" p-3 border border-slate-300">{{r.titulo}}</td>
                                 <td class=" p-3 border border-slate-300">{{r.content.substring(0,50) }}</td>
-                                <td class=" p-3 border border-slate-300">{{r.status == 1 ? 'Activo' : 'Enviado' }}</td>
+                                <td class=" p-3 border border-slate-300">{{r.status == 1 ? 'En Edicion' : 'Enviado' }}</td>
                                 <td class=" p-3 border border-slate-300">
-                                    <Link :href="route('report.show',{ report: r})">
-                                        Editar
+                                    <Link :href="route('report.show',{ report: r})" >
+                                        Visualizar
                                     </Link>
-                                    <Link :href="route('report.create')">
-                                       Visualizar
+                                    <Link :href="route('report.edit', { report: r})" v-if="r.status === 1">
+                                       Editar
                                     </Link>
                                 </td>
 

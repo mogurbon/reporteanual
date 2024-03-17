@@ -69,7 +69,7 @@ class ReportController extends Controller
      */
     public function edit(Report $report)
     {
-        //
+        return Inertia::render('Edit', compact('report'));
     }
 
     /**
@@ -77,7 +77,18 @@ class ReportController extends Controller
      */
     public function update(Request $request, Report $report)
     {
-        //
+       # dd($request->all());
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+            'init_date' =>'required|date',
+            'end_date' =>'required|date',
+            'status' =>'required|numeric'
+        ]);
+
+        $report->update($validatedData);
+
+        return to_route('dashboard');
     }
 
     /**

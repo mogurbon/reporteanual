@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Report extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'content', 'init_date', 'end_date', 'user_id'];
-
+    protected $fillable = ['title', 'content', 'init_date', 'end_date', 'user_id','status'];
+    protected $casts = [
+        'status' => 'integer',
+    ];
 
     public function user()
     {
