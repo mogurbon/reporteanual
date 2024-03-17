@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\ReportNotify;
 
 class ReportController extends Controller
 {
@@ -19,7 +20,9 @@ class ReportController extends Controller
     {
         $user_id = Auth::id();
         $reports = User::find($user_id)->reports()->get();
-#dd($reports);
+       # $user = User::find(1);
+       # $user->notify(new ReportNotify());
+#dd('algo');
 
         return Inertia::render('Dashboard',['reports' => $reports]);
 

@@ -5,7 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ReportController;
-
+#use Illuminate\Mail;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -31,5 +31,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::get('/send-mail', function () {
+    \Mail::raw('Esto es una prueba', function ($message) {
+        $message->to('example@example.com')->subject('Correo de Prueba');
+    });
+
+    return 'Correo enviado';
+});
+
+
 
 require __DIR__.'/auth.php';
