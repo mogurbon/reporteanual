@@ -34,7 +34,7 @@ import { Link } from '@inertiajs/vue3'
                                 <td class=" p-3 border border-slate-300">{{r.content.substring(0,50) }}</td>
                                 <td class=" p-3 border border-slate-300">{{r.status == 1 ? 'Activo' : 'Enviado' }}</td>
                                 <td class=" p-3 border border-slate-300">
-                                    <Link :href="route('report.create')">
+                                    <Link :href="route('report.show',{ report: r})">
                                         Editar
                                     </Link>
                                     <Link :href="route('report.create')">

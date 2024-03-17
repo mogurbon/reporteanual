@@ -61,7 +61,9 @@ class ReportController extends Controller
      */
     public function show(Report $report)
     {
-        //
+
+
+        return Inertia::render('Show',compact('report'));
     }
 
     /**
